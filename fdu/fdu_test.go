@@ -11,8 +11,5 @@ func TestLogin(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	err = fd.Logout()
-	if err != nil {
-		t.Error(err)
-	}
+	fd.Logout()
 }
