@@ -32,6 +32,9 @@ func (xk *XK) Login() error {
 			return err
 		}
 		html, err := goquery.NewDocumentFromReader(resp.Body)
+		if err != nil {
+			return err
+		}
 		s := html.Find("input[name='electionProfile.id']").First()
 		value, _ := s.Attr("value")
 		xk.User.ProfileID = value
