@@ -8,8 +8,8 @@ import (
 func TestLogin(t *testing.T) {
 	fd := New(utils.GetUser())
 	err := fd.Login()
+	defer fd.Logout()
 	if err != nil {
 		t.Error(err)
 	}
-	fd.Logout()
 }

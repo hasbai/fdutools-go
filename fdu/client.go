@@ -5,12 +5,24 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type Client struct {
 	http.Client
+}
+
+func NewClient() *Client {
+	jar, _ := cookiejar.New(nil)
+	c := &Client{http.Client{
+		Timeout: time.Second * 10,
+		Jar:     jar,
+	}}
+	c.AllowRedirect()
+	return c
 }
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML like Gecko) Chrome/91.0.4472.114 Safari/537.36"
@@ -50,4 +62,16 @@ func (c *Client) PostJSON(reqURL string, body map[string]string) (*http.Response
 	req, _ := http.NewRequest("POST", reqURL, bytes.NewReader(data))
 	req.Header.Set("Content-Type", "application/json")
 	return c.do(req)
+}
+
+func (c *Client) AllowRedirect() {
+	c.CheckRedirect = func(req *http.Request, via []*http.Request) error {
+		return nil
+	}
+}
+
+func (c *Client) DisallowRedirect() {
+	c.CheckRedirect = func(req *http.Request, via []*http.Request) error {
+		return http.ErrUseLastResponse
+	}
 }

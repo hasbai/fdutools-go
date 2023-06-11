@@ -5,8 +5,7 @@ import (
 	"fdutools-go/utils"
 	"github.com/PuerkitoBio/goquery"
 	"log"
-	"net/http"
-	"net/http/cookiejar"
+	"strings"
 	"time"
 )
 
@@ -18,15 +17,8 @@ type Fdu struct {
 }
 
 func New(user *utils.User) *Fdu {
-	jar, _ := cookiejar.New(nil)
 	fdu := Fdu{
-		C: &Client{http.Client{
-			Timeout: time.Second * 10,
-			Jar:     jar,
-			CheckRedirect: func(req *http.Request, via []*http.Request) error {
-				return http.ErrUseLastResponse
-			},
-		}},
+		C:         NewClient(),
 		User:      user,
 		LoginURL:  "https://uis.fudan.edu.cn/authserver/login",
 		LogoutURL: "https://uis.fudan.edu.cn/authserver/logout",
@@ -60,22 +52,18 @@ func (f *Fdu) Login() error {
 	}
 	time.Sleep(time.Millisecond * 200)
 
-	if resp.StatusCode == 302 {
-		log.Println("login successful")
-		return nil
-	} else {
-		return errors.New("login fail\n" + utils.ReadBody(resp.Body))
+	if strings.Contains(resp.Header.Get("Expires"), "1970") {
+		txt := utils.ReadBody(resp.Body)
+		return errors.New("login fail\n" + txt)
 	}
+	log.Println("login successful")
+	return nil
 }
 
 func (f *Fdu) Logout() {
-	resp, err := f.C.Get(f.LogoutURL)
+	_, err := f.C.Get(f.LogoutURL)
 	if err != nil {
 		log.Panic(err)
 	}
-	if resp.StatusCode == 302 {
-		log.Println("logout successful")
-	} else {
-		log.Panicf("logout fail\n" + utils.ReadBody(resp.Body))
-	}
+	log.Println("logout successful")
 }
