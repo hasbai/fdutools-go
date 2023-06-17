@@ -21,7 +21,7 @@ func New(user *utils.User) *XK {
 }
 
 func (xk *XK) Login() error {
-	err := xk.Fdu.Login()
+	_, err := xk.Fdu.Login([]string{})
 	if err != nil {
 		return err
 	}

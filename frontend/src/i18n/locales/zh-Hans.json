@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "home": "主页",
+    "login": "登录",
+    "about": "关于"
+  },
+  "languages": {
+    "en": "English",
+    "zh-Hans": "简体中文",
+    "fr": "Français"
+  },
+  "topbar": {
+    "minimise": "最小化",
+    "quit": "退出"
+  },
+  "home": {
+    "welcome": "欢迎，"
+  },
+  "aboutpage": {
+    "title": "FDU Tools",
+    "project-repository": "项目仓库",
+    "author": "作者",
+    "name": "hasbai",
+    "thanks": "感谢各位大佬的支持🙏！"
+  },
+  "login": {
+    "login": "登录",
+    "username": "学号",
+    "password": "密码"
+  },
+  "global": {
+    "not-supported": "由于是测试版，所以暂时做不了，后续会完成它。",
+    "click-link": "当前点击的链接是: "
+  }
+}

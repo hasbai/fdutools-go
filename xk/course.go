@@ -1,12 +1,12 @@
 package xk
 
 import (
-	"encoding/json"
 	"errors"
 	"fdutools-go/captcha"
 	"fdutools-go/utils"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/goccy/go-json"
 	"golang.org/x/exp/slices"
 	"regexp"
 	"strconv"

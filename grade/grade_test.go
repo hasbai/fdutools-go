@@ -8,7 +8,7 @@ import (
 
 func TestGetGrades(t *testing.T) {
 	g := New(utils.GetUser())
-	err := g.Login()
+	_, err := g.Login([]string{})
 	if err != nil {
 		t.Fatal(err)
 	}

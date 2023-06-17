@@ -1,0 +1,84 @@
+@import url(transition.css);
+
+html {
+    overflow-y: hidden;
+}
+
+html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+:root {
+    --color: white;
+}
+
+body {
+    font-size: 1rem;
+}
+
+#app {
+    width: 100vw;
+    height: 100vh;
+    margin-right: calc(100% - 100vw);
+    background: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+    main::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    main::-webkit-scrollbar-track {
+        background: white;
+        border-radius: 2px;
+    }
+
+    main::-webkit-scrollbar-thumb {
+        background: rgb(210, 210, 210);
+        border-radius: 8px;
+    }
+
+    main::-webkit-scrollbar-thumb:hover {
+        background: rgb(180, 180, 180);
+    }
+
+    main::-webkit-scrollbar-corner {
+        background: #179a16;
+    }
+}
+
+#app button {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.n-menu-item:first-child {
+    margin: 1rem 0;
+}
+
+.fixed-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background-color: var(--color);
+    z-index: 999;
+}
+
+.fixed-btn svg {
+    width: 1.75rem;
+    height: 1.75rem;
+}

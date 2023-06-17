@@ -7,7 +7,7 @@ import (
 
 func TestLogin(t *testing.T) {
 	fd := New(utils.GetUser())
-	err := fd.Login()
+	err := fd.login("", "")
 	defer fd.Logout()
 	if err != nil {
 		t.Error(err)
