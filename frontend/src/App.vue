@@ -2,6 +2,7 @@
   <header>
     <div class="nav">
       <router-link to="/">{{ t("nav.home") }}</router-link>
+      <router-link to="/grade">{{ t("nav.grade") }}</router-link>
       <router-link to="/login">{{ t("nav.login") }}</router-link>
       <router-link to="/about">{{ t("nav.about") }}</router-link>
     </div>
@@ -58,7 +59,7 @@ header {
   justify-content: space-between;
   height: 50px;
   padding: 0 10px;
-  background-color: rgba(171, 126, 220, 0.9);
+  background-color: #3f51b5;
   .nav {
     a {
       display: inline-block;
@@ -67,7 +68,7 @@ header {
       line-height: 30px;
       padding: 0 5px;
       margin-right: 8px;
-      background-color: #ab7edc;
+      background-color: #7986cb;
       border-radius: 2px;
       text-align: center;
       text-decoration: none;
@@ -76,7 +77,7 @@ header {
       white-space: nowrap;
       &:hover,
       &.router-link-exact-active {
-        background-color: #d7a8d8;
+        background-color: #3d5afe;
         color: #ffffff;
       }
     }
@@ -90,7 +91,7 @@ header {
     .language {
       margin-right: 20px;
       border-radius: 2px;
-      background-color: #c3c3c3;
+      background-color: #7986cb;
       overflow: hidden;
       .lang-item {
         display: inline-block;
@@ -104,40 +105,13 @@ header {
         color: #000000;
         font-size: 14px;
         &:hover {
-          background-color: #ff050542;
+          background-color: #7986cb;
           cursor: pointer;
         }
         &.active {
-          background-color: #ff050542;
+          background-color:  #3d5afe;
           color: #ffffff;
           cursor: not-allowed;
-        }
-      }
-    }
-    .bar {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: center;
-      justify-content: flex-end;
-      min-width: 150px;
-      .bar-btn {
-        display: inline-block;
-        min-width: 80px;
-        height: 30px;
-        line-height: 30px;
-        padding: 0 5px;
-        margin-left: 8px;
-        background-color: #ab7edc;
-        border-radius: 2px;
-        text-align: center;
-        text-decoration: none;
-        color: #000000;
-        font-size: 14px;
-        &:hover {
-          background-color: #d7a8d8;
-          color: #ffffff;
-          cursor: pointer;
         }
       }
     }

@@ -1,4 +1,4 @@
-package grade
+package fdu
 
 import (
 	"fdutools-go/utils"

@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "login": "Login",
+    "grade": "Grade",
     "about": "About"
   },
   "languages": {
@@ -22,6 +23,12 @@
     "author": "Author",
     "name": "hasbai",
     "thanks": "Thank you all for your support🙏!"
+  },
+  "grade": {
+    "gpa": "My GPA is: ",
+    "semester": "Semester",
+    "name": "Name",
+    "grade": "Grade"
   },
   "login": {
     "login": "Login",
