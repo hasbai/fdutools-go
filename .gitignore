@@ -17,6 +17,7 @@ dist
 dist-ssr
 coverage
 *.local
+build/bin/
 
 /cypress/videos/
 /cypress/screenshots/

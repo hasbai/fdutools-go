@@ -13,9 +13,9 @@ func TestGetGrades(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer g.Logout()
-	err = g.getGrades()
+	grades, err := g.getGrades()
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(g.grades)
+	fmt.Println(grades)
 }

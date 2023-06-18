@@ -24,9 +24,13 @@
 </template>
 
 <script setup lang="ts">
+import {Login} from "../wailsjs/go/fdu/Fdu";
+import router from "@/router";
+import { useStore } from "@/stores/store";
 import { useI18n } from "vue-i18n";
 
 const { t, availableLocales: languages, locale } = useI18n();
+
 const onclickLanguageHandle = (item: string) => {
   item !== locale.value ? (locale.value = item) : false;
 };
@@ -34,10 +38,6 @@ const onclickLanguageHandle = (item: string) => {
 const onclickMinimise = () => {};
 
 const onclickQuit = () => {};
-
-import {Login} from "../wailsjs/go/fdu/Fdu";
-import router from "@/router";
-import { useStore } from "@/stores/store";
 
 const store = useStore();
 Login([]).then((res) => {

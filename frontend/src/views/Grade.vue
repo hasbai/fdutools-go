@@ -8,14 +8,9 @@
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
       <tr>
-        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          {{t("grade.semester")}}
-        </th>
-        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          {{ t("grade.name") }}
-        </th>
-        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          {{ t("grade.grade") }}
+        <th v-for="i in ['semester', 'name', 'grade']"
+            class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          {{t("grade." + i)}}
         </th>
       </tr>
       </thead>
@@ -71,7 +66,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, computed } from "vue";
-import { fdu } from "../../wailsjs/go/models";
+import type { fdu } from "../../wailsjs/go/models";
 import { GetGrades } from "../../wailsjs/go/fdu/Fdu";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
@@ -103,6 +98,8 @@ onMounted(async () => {
 
 </script>
 
-<style>
-/* Add Tailwind CSS classes here if needed */
+<style scoped>
+nav > a {
+  cursor: pointer;
+}
 </style>
