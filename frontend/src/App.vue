@@ -20,7 +20,13 @@
       </div>
     </div>
   </header>
-  <router-view />
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" :key="$route.fullPath"/>
+    </keep-alive>
+  </router-view>
+  <Log></Log>
+
 </template>
 
 <script setup lang="ts">
@@ -28,6 +34,7 @@ import {Login} from "../wailsjs/go/fdu/Fdu";
 import router from "@/router";
 import { useStore } from "@/stores/store";
 import { useI18n } from "vue-i18n";
+import Log from "@/components/Log.vue";
 
 const { t, availableLocales: languages, locale } = useI18n();
 
@@ -42,7 +49,7 @@ const onclickQuit = () => {};
 const store = useStore();
 Login([]).then((res) => {
   store.setUser(res);
-}).catch((err) => {
+}).catch(() => {
   router.push("/login");
 })
 

@@ -3,6 +3,7 @@ package fdu
 import (
 	"fdutools-go/utils"
 	"github.com/goccy/go-json"
+	"log"
 )
 
 type Grade struct {
@@ -80,7 +81,7 @@ type Grades struct {
 
 func (f *Fdu) GetGrades() (Grades, error) {
 	var out Grades
-
+	log.Println("Getting grades")
 	grades, err := f.getGrades()
 	if err != nil {
 		return out, err
