@@ -1,9 +1,10 @@
 {
   "nav": {
     "home": "Home",
+    "about": "About",
     "login": "Login",
     "grade": "Grade",
-    "about": "About"
+    "xk": "Course Selection"
   },
   "languages": {
     "en": "English",
@@ -25,10 +26,31 @@
     "thanks": "Thank you all for your support🙏!"
   },
   "grade": {
-    "gpa": "My GPA is: ",
+    "gpa": "GPA",
+    "rank": "Rank: ",
+    "credits": "Credits: ",
     "semester": "Semester",
     "name": "Name",
     "grade": "Grade"
+  },
+  "xk": {
+    "select": "Select",
+    "drop": "Drop",
+    "skip-captcha": "Skip Captcha",
+    "col-1": "",
+    "col0": "Sunday",
+    "col1": "Monday",
+    "col2": "Tuesday",
+    "col3": "Wednesday",
+    "col4": "Thursday",
+    "col5": "Friday",
+    "col6": "Saturday",
+    "name": "Name",
+    "teacher": "Teacher",
+    "credit": "Credit",
+    "campus": "Campus",
+    "exam": "Exam",
+    "amount": "Amount"
   },
   "login": {
     "login": "Login",

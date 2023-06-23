@@ -2,8 +2,10 @@ package fdu
 
 import (
 	"fdutools-go/utils"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/goccy/go-json"
 	"log"
+	"strconv"
 )
 
 type Grade struct {
@@ -88,5 +90,54 @@ func (f *Fdu) GetGrades() (Grades, error) {
 	}
 	out.Grades = grades
 	out.GPA = calcGPA(grades)
+	return out, nil
+}
+
+type Rank struct {
+	Rank       int     `json:"current"`
+	Total      int     `json:"total"`
+	Percentage float64 `json:"percentage"`
+	GPA        float64 `json:"gpa"`
+	Credits    float64 `json:"credits"`
+}
+
+func (f *Fdu) GetRank() (Rank, error) {
+	var out Rank
+	log.Println("Getting rank")
+
+	resp, err := f.C.Get("https://jwfw.fudan.edu.cn/eams/myActualGpa.action")
+	if err != nil {
+		return out, err
+	}
+	html, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return out, err
+	}
+	majorID, _ := html.Find("option[selected=selected]").Attr("value")
+
+	resp, err = f.C.Get(
+		"https://jwfw.fudan.edu.cn/eams/myActualGpa!search.action?std.major.id=" + majorID,
+	)
+	if err != nil {
+		return out, err
+	}
+	html, err = goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return out, err
+	}
+	trs := html.Find("#stdGpaListForm tbody tr")
+	out.Total = trs.Length()
+	trs.Each(func(i int, s *goquery.Selection) {
+		tds := s.Find("td")
+		if tds.Eq(0).Text()[0] != '*' {
+			out.Rank = i + 1
+			gpa, _ := strconv.ParseFloat(tds.Eq(5).Text(), 64)
+			out.GPA = gpa
+			credits, _ := strconv.ParseFloat(tds.Eq(6).Text(), 64)
+			out.Credits = credits
+			return
+		}
+	})
+	out.Percentage = float64(out.Rank) / float64(out.Total) * 100
 	return out, nil
 }

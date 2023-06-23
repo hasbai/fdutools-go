@@ -6,6 +6,10 @@ export function GetGrades() {
   return window['go']['fdu']['Fdu']['GetGrades']();
 }
 
+export function GetRank() {
+  return window['go']['fdu']['Fdu']['GetRank']();
+}
+
 export function Login(arg1) {
   return window['go']['fdu']['Fdu']['Login'](arg1);
 }

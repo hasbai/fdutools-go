@@ -1,8 +1,6 @@
 <template>
   <main class="home">
-    <div>
-      {{ t("home.welcome") }}{{store.user.name}}
-    </div>
+    <div>{{ t("home.welcome") }}{{ store.user.name }}</div>
   </main>
 </template>
 
@@ -12,10 +10,6 @@ import { useStore } from "@/stores/store";
 
 const { t } = useI18n();
 const store = useStore();
-
 </script>
 
-
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
