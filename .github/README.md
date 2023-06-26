@@ -1,10 +1,6 @@
 <h1 align="center">Wails Template Vue</h1>
 
 <p align="center">
-  <img src="./logo.png" height="280" />
-</p>
-
-<p align="center">
   Wails template based on Vue ecology
 </p>
 
