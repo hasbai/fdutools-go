@@ -114,6 +114,7 @@ func (f *Fdu) GetRank() (Rank, error) {
 		return out, err
 	}
 	majorID, _ := html.Find("option[selected=selected]").Attr("value")
+	log.Println("Major ID:", majorID)
 
 	resp, err = f.C.Get(
 		"https://jwfw.fudan.edu.cn/eams/myActualGpa!search.action?std.major.id=" + majorID,

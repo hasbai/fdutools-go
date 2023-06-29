@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"github.com/PuerkitoBio/goquery"
+	"io"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
@@ -36,7 +38,7 @@ func (c *Client) do(req *http.Request) (*http.Response, error) {
 	if resp.StatusCode >= 400 {
 		return resp, errors.New("status " + resp.Status)
 	}
-	return resp, err
+	return c.repeatLogin(resp)
 }
 
 func (c *Client) Get(reqURL string) (*http.Response, error) {
@@ -73,5 +75,29 @@ func (c *Client) AllowRedirect() {
 func (c *Client) DisallowRedirect() {
 	c.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 		return http.ErrUseLastResponse
+	}
+}
+
+func (c *Client) repeatLogin(resp *http.Response) (*http.Response, error) {
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	err = resp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+	reader := bytes.NewReader(body)
+	doc, err := goquery.NewDocumentFromReader(reader)
+	if err != nil {
+		return nil, err
+	}
+	const text = "当前用户存在重复登录的情况，已将之前的登录踢出："
+	if doc.Find("h2").First().Text() == text {
+		href, _ := doc.Find("a").First().Attr("href")
+		return c.Get(href)
+	} else {
+		resp.Body = io.NopCloser(bytes.NewReader(body))
+		return resp, nil
 	}
 }
