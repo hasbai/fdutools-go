@@ -4,6 +4,7 @@ import (
 	"context"
 	"fdutools-go/fdu"
 	"fdutools-go/utils"
+	"fdutools-go/xk"
 )
 
 // App struct
@@ -39,6 +40,8 @@ func (a *App) beforeClose(ctx context.Context) (prevent bool) {
 // shutdown is called at application termination
 func (a *App) shutdown(ctx context.Context) {
 	fd.Logout()
+	_xk.Logout()
 }
 
 var fd = fdu.New(utils.GetUser())
+var _xk = xk.New(utils.GetUser())

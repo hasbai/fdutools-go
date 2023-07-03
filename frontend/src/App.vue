@@ -1,10 +1,7 @@
 <template>
   <header>
     <div class="nav">
-      <router-link to="/">{{ t("nav.home") }}</router-link>
-      <router-link to="/grade">{{ t("nav.grade") }}</router-link>
-      <router-link to="/login">{{ t("nav.login") }}</router-link>
-      <router-link to="/about">{{ t("nav.about") }}</router-link>
+      <router-link v-for="i in pages" :to="i">{{ t("nav." + i) }}</router-link>
     </div>
     <div class="menu">
       <div class="language">
@@ -37,6 +34,14 @@ import { useI18n } from "vue-i18n";
 import Log from "@/components/Log.vue";
 
 const { t, availableLocales: languages, locale } = useI18n();
+
+const pages = [
+  'home',
+  'grade',
+  'xk',
+  'login',
+  'about'
+]
 
 const onclickLanguageHandle = (item: string) => {
   item !== locale.value ? (locale.value = item) : false;

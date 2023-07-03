@@ -4,17 +4,19 @@ import (
 	"errors"
 	"fdutools-go/fdu"
 	"fdutools-go/utils"
+	"log"
 )
 
-func DoLoop(c *fdu.Client) {
-	i := 0
-	for i < 5 {
+func DoN(c *fdu.Client, n int) error {
+	for i := 0; i < n; i++ {
 		err := Do(c)
 		if err == nil {
-			break
+			return nil
 		}
-		i++
+		log.Printf("captcha error: %s", err)
 	}
+	log.Printf("captcha failed after %d try", n)
+	return errors.New("captcha failed")
 }
 
 func Do(c *fdu.Client) error {

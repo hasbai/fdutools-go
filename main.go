@@ -25,11 +25,11 @@ func main() {
 	err := wails.Run(&options.App{
 		Title:             "fdutools-go",
 		Width:             900,
-		Height:            600,
+		Height:            660,
 		MinWidth:          900,
 		MinHeight:         600,
-		MaxWidth:          1200,
-		MaxHeight:         800,
+		MaxWidth:          2560,
+		MaxHeight:         1440,
 		DisableResize:     false,
 		Fullscreen:        false,
 		Frameless:         false,
@@ -52,6 +52,7 @@ func main() {
 		Bind: []interface{}{
 			app,
 			fd,
+			_xk,
 		},
 		// Windows platform specific options
 		Windows: &windows.Options{

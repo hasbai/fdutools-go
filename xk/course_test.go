@@ -37,3 +37,17 @@ func TestSelect(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestXK_GetCoursesAndSchedule(t *testing.T) {
+	xk := New(utils.GetUser())
+	err := xk.Login()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer xk.Logout()
+	courses, err := xk.GetCoursesAndSchedule()
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(courses)
+}

@@ -1,10 +1,12 @@
 package xk
 
 import (
+	"errors"
 	"fdutools-go/fdu"
 	"fdutools-go/utils"
 	"github.com/PuerkitoBio/goquery"
-	"time"
+	"log"
+	"strings"
 )
 
 type XK struct {
@@ -21,16 +23,23 @@ func New(user *utils.User) *XK {
 }
 
 func (xk *XK) Login() error {
-	_, err := xk.Fdu.Login([]string{})
+	payload := map[string]string{
+		"username": xk.User.Uid,
+		"password": xk.User.Pwd,
+	}
+	resp, err := xk.C.Post(xk.LoginURL, payload)
 	if err != nil {
 		return err
 	}
+	if !strings.Contains(resp.Request.URL.Path, "home") {
+		return errors.New("xk login failed")
+	}
 
+	resp, err = xk.C.Get("https://xk.fudan.edu.cn/xk/stdElectCourse!innerIndex.action")
+	if err != nil {
+		return err
+	}
 	if xk.User.ProfileID == "" {
-		resp, err := xk.C.Get("https://xk.fudan.edu.cn/xk/stdElectCourse!innerIndex.action")
-		if err != nil {
-			return err
-		}
 		html, err := goquery.NewDocumentFromReader(resp.Body)
 		if err != nil {
 			return err
@@ -38,15 +47,20 @@ func (xk *XK) Login() error {
 		s := html.Find("input[name='electionProfile.id']").First()
 		value, _ := s.Attr("value")
 		xk.User.ProfileID = value
-		time.Sleep(time.Millisecond * 200)
+		utils.SaveConfig()
 	}
 
-	_, err = xk.C.Post(
+	resp, err = xk.C.Post(
 		"https://xk.fudan.edu.cn/xk/stdElectCourse!defaultPage.action",
 		map[string]string{"electionProfile.id": xk.User.ProfileID},
 	)
-	//if resp.StatusCode != 302 {
-	//	return errors.New("login failed")
-	//}
-	return err
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode != 200 {
+		return errors.New("login failed")
+	}
+
+	log.Println("xk login success")
+	return nil
 }
