@@ -66,12 +66,12 @@ func main() {
 		// Mac platform specific options
 		Mac: &mac.Options{
 			TitleBar: &mac.TitleBar{
-				TitlebarAppearsTransparent: true,
+				TitlebarAppearsTransparent: false,
 				HideTitle:                  true,
 				HideTitleBar:               false,
-				FullSizeContent:            true,
-				UseToolbar:                 false,
-				HideToolbarSeparator:       false,
+				FullSizeContent:            false,
+				UseToolbar:                 true,
+				HideToolbarSeparator:       true,
 			},
 			Appearance:           mac.NSAppearanceNameDarkAqua,
 			WebviewIsTransparent: true,
